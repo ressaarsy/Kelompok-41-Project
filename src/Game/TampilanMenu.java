@@ -12,7 +12,6 @@ public class TampilanMenu extends AbstractTampilanMenu {
         JLayeredPane layeredPane = new JLayeredPane();
         frame.add(layeredPane);
 
-        // Tambahkan panel gambar latar belakang dan panel tombol
         layeredPane.add(createImagePanel(), Integer.valueOf(0));
         layeredPane.add(createButtonPanel(), Integer.valueOf(1));
 
@@ -27,7 +26,6 @@ public class TampilanMenu extends AbstractTampilanMenu {
         return frame;
     }
 
-    // Membuat panel untuk gambar latar belakang
     private JPanel createImagePanel() {
         JPanel imagePanel = new JPanel() {
             @Override
@@ -46,27 +44,26 @@ public class TampilanMenu extends AbstractTampilanMenu {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
         buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0)); // Margin antar tombol
-        buttonPanel.setBounds(225, 150, 200, 200); // Posisi tetap
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
+        buttonPanel.setBounds(225, 150, 200, 200); 
 
         // Tambahkan tombol
         buttonPanel.add(createStyledButton("Play", e -> showPlayMessage()));
-        buttonPanel.add(Box.createVerticalStrut(20)); // Spasi antar tombol
+        buttonPanel.add(Box.createVerticalStrut(20)); 
         buttonPanel.add(createStyledButton("Score", e -> showScoreMessage()));
-        buttonPanel.add(Box.createVerticalStrut(20)); // Spasi antar tombol
+        buttonPanel.add(Box.createVerticalStrut(20)); 
         buttonPanel.add(createStyledButton("Exit", e -> exitGame()));
 
         return buttonPanel;
     }
 
-    // Membuat tombol dengan gaya tertentu
     private JButton createStyledButton(String label, ActionListener actionListener) {
         JButton button = new JButton(label);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setPreferredSize(new Dimension(200, 40));
         button.setMaximumSize(new Dimension(200, 40));
-        button.setBackground(new Color(128, 128, 1)); // Warna hijau
-        button.setForeground(Color.BLACK); // Warna teks hitam
+        button.setBackground(new Color(128, 128, 1)); 
+        button.setForeground(Color.BLACK);
         button.setFont(new Font("Arial", Font.BOLD, 16));
         button.setFocusPainted(false);
         button.addActionListener(actionListener);
@@ -100,6 +97,5 @@ public class TampilanMenu extends AbstractTampilanMenu {
 
     @Override
     public void addImage(JPanel panel, String imagePath) {
-        // Tidak digunakan lagi karena gambar latar belakang dibuat di createImagePanel
     }
 }
