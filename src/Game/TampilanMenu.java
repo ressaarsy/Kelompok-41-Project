@@ -1,6 +1,11 @@
 package Game;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
+
+import DataBase.DatabaseHandler; // ditambahkan untuk mengambil data leaderboard dari basis data
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -76,8 +81,54 @@ public class TampilanMenu extends AbstractTampilanMenu {
     }
 
     @Override
-    public void showScoreMessage() {
-        JOptionPane.showMessageDialog(null, "Fitur Skor Belum Ada");
+    public void showScoreMessage() { // ditambahkan menampilkan papan skor atau leaderboard 
+        java.util.List<String> leaderboard = DatabaseHandler.showLeaderboard();
+
+        if (leaderboard.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "leaderboard kosong.");
+        } else {
+            String[] columnNames = {"Nama", "Jumlah Menang"};
+            String[][] tableData = new String[leaderboard.size()][2];
+
+            for (int i = 0; i < leaderboard.size(); i++) {
+                String[] entry = leaderboard.get(i).split(": ");
+                tableData[i][0] = entry[0].trim();
+                tableData[i][1] = entry[1].replace(" wins", "").trim();
+            }
+
+            JTable table = new JTable(tableData, columnNames);
+            table.setFont(new Font("Arial", Font.PLAIN, 14));
+            table.setRowHeight(30);
+            table.setFillsViewportHeight(true);
+
+            DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+            cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+            table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+                @Override
+                public Component getTableCellRendererComponent(
+                        JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                    Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    if (row % 2 == 0) {
+                        cell.setBackground(new Color(240, 248, 255));
+                    } else {
+                        cell.setBackground(new Color(255, 248, 220));
+                    }
+                    cell.setForeground(Color.BLACK);
+                    ((DefaultTableCellRenderer) cell).setHorizontalAlignment(SwingConstants.CENTER);
+                    return cell;
+                }
+            });
+
+            JTableHeader tableHeader = table.getTableHeader();
+            tableHeader.setBackground(new Color(128, 128, 255));
+            tableHeader.setForeground(Color.WHITE);
+            tableHeader.setFont(new Font("Arial", Font.BOLD, 16));
+
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setPreferredSize(new Dimension(400, 300));
+
+            JOptionPane.showMessageDialog(null, scrollPane, "leaderboard", JOptionPane.INFORMATION_MESSAGE);;
+        }
     }
 
     @Override
