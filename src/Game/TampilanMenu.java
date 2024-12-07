@@ -1,19 +1,16 @@
 package Game;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
-
-import DataBase.DatabaseHandler; // ditambahkan untuk mengambil data leaderboard dari basis data
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class TampilanMenu extends AbstractTampilanMenu {
 
+    private JFrame frame;
+
     @Override
     public void initializeFrame() {
-        JFrame frame = createFrame();
+        frame = createFrame();
         JLayeredPane layeredPane = new JLayeredPane();
         frame.add(layeredPane);
 
@@ -23,7 +20,6 @@ public class TampilanMenu extends AbstractTampilanMenu {
         frame.setVisible(true);
     }
 
-    // Membuat JFrame
     private JFrame createFrame() {
         JFrame frame = new JFrame("Ular Tangga");
         frame.setSize(650, 500);
@@ -44,31 +40,45 @@ public class TampilanMenu extends AbstractTampilanMenu {
         return imagePanel;
     }
 
-    // Membuat panel untuk tombol
     private JPanel createButtonPanel() {
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+        buttonPanel.setLayout(new GridBagLayout());
         buttonPanel.setOpaque(false);
-        buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
-        buttonPanel.setBounds(225, 150, 200, 200); 
+        buttonPanel.setBounds(0, 0, 650, 500);
 
-        // Tambahkan tombol
-        buttonPanel.add(createStyledButton("Play", e -> showPlayMessage()));
-        buttonPanel.add(Box.createVerticalStrut(20)); 
-        buttonPanel.add(createStyledButton("Score", e -> showScoreMessage()));
-        buttonPanel.add(Box.createVerticalStrut(20)); 
-        buttonPanel.add(createStyledButton("Exit", e -> exitGame()));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+
+        // Judul dengan efek menarik
+        JLabel titleLabel = new JLabel("=SnakeBoard=");
+        titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
+        titleLabel.setForeground(new Color(255, 255, 239));
+
+        buttonPanel.add(titleLabel, gbc);
+
+        gbc.gridy = 1;
+        buttonPanel.add(createStyledButton("Play", e -> startGame()), gbc);
+
+        gbc.gridy = 2;
+        buttonPanel.add(createStyledButton("Score", e -> showScoreMessage()), gbc);
+
+        gbc.gridy = 3;
+        buttonPanel.add(createStyledButton("Exit", e -> exitGame()), gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
 
         return buttonPanel;
     }
 
     private JButton createStyledButton(String label, ActionListener actionListener) {
         JButton button = new JButton(label);
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setPreferredSize(new Dimension(200, 40));
         button.setMaximumSize(new Dimension(200, 40));
-        button.setBackground(new Color(128, 128, 1)); 
-        button.setForeground(Color.BLACK);
+        button.setBackground(new Color(128, 128, 1));
+        button.setForeground(new Color(255, 255, 239));
         button.setFont(new Font("Arial", Font.BOLD, 16));
         button.setFocusPainted(false);
         button.addActionListener(actionListener);
@@ -80,55 +90,22 @@ public class TampilanMenu extends AbstractTampilanMenu {
         JOptionPane.showMessageDialog(null, "Selamat Bermain!!!");
     }
 
-    @Override
-    public void showScoreMessage() { // ditambahkan menampilkan papan skor atau leaderboard 
-        java.util.List<String> leaderboard = DatabaseHandler.showLeaderboard();
+    private void startGame() {
+        String player1Name = JOptionPane.showInputDialog(frame, "Masukkan nama Player 1:", "Input Nama", JOptionPane.PLAIN_MESSAGE);
+        String player2Name = JOptionPane.showInputDialog(frame, "Masukkan nama Player 2:", "Input Nama", JOptionPane.PLAIN_MESSAGE);
 
-        if (leaderboard.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "leaderboard kosong.");
-        } else {
-            String[] columnNames = {"Nama", "Jumlah Menang"};
-            String[][] tableData = new String[leaderboard.size()][2];
-
-            for (int i = 0; i < leaderboard.size(); i++) {
-                String[] entry = leaderboard.get(i).split(": ");
-                tableData[i][0] = entry[0].trim();
-                tableData[i][1] = entry[1].replace(" wins", "").trim();
-            }
-
-            JTable table = new JTable(tableData, columnNames);
-            table.setFont(new Font("Arial", Font.PLAIN, 14));
-            table.setRowHeight(30);
-            table.setFillsViewportHeight(true);
-
-            DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
-            cellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-            table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-                @Override
-                public Component getTableCellRendererComponent(
-                        JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                    Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                    if (row % 2 == 0) {
-                        cell.setBackground(new Color(240, 248, 255));
-                    } else {
-                        cell.setBackground(new Color(255, 248, 220));
-                    }
-                    cell.setForeground(Color.BLACK);
-                    ((DefaultTableCellRenderer) cell).setHorizontalAlignment(SwingConstants.CENTER);
-                    return cell;
-                }
-            });
-
-            JTableHeader tableHeader = table.getTableHeader();
-            tableHeader.setBackground(new Color(128, 128, 255));
-            tableHeader.setForeground(Color.WHITE);
-            tableHeader.setFont(new Font("Arial", Font.BOLD, 16));
-
-            JScrollPane scrollPane = new JScrollPane(table);
-            scrollPane.setPreferredSize(new Dimension(400, 300));
-
-            JOptionPane.showMessageDialog(null, scrollPane, "leaderboard", JOptionPane.INFORMATION_MESSAGE);;
+        if (player1Name == null || player1Name.trim().isEmpty() || player2Name == null || player2Name.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(frame, "Nama tidak boleh kosong. Silakan coba lagi.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        frame.setVisible(false);
+        new UlarTangga(player1Name, player2Name);
+    }
+
+    @Override
+    public void showScoreMessage() {
+        Leaderboard.show(frame);
     }
 
     @Override
@@ -148,5 +125,10 @@ public class TampilanMenu extends AbstractTampilanMenu {
 
     @Override
     public void addImage(JPanel panel, String imagePath) {
+    }
+
+    @Override
+    public void callImage() {
+        System.out.println("callImage method is called.");
     }
 }
