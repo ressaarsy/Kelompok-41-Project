@@ -45,7 +45,7 @@ public class DatabaseHandler {
     public static ArrayList<String> showLeaderboard() {
         ArrayList<String> leaderboardData = new ArrayList<>();
         try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "SELECT nama, jumlah_menang FROM user ORDER BY jumlah_menang DESC"; // Query untuk mendapatkan data leaderboard
+            String query = "SELECT nama, jumlah_menang FROM user ORDER BY jumlah_menang DESC";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {

@@ -51,7 +51,6 @@ public class TampilanMenu extends AbstractTampilanMenu {
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Judul dengan efek menarik
         JLabel titleLabel = new JLabel("=SnakeBoard=");
         titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 36));
         titleLabel.setForeground(new Color(255, 255, 239));
