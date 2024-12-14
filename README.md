@@ -2,7 +2,7 @@
 
 ---
 
-## Deskripsi Proyek
+## Deskripsi Project
 **SnakeBoard** adalah permainan ular tangga klasik dua pemain yang dibuat dengan Java dan Swing. Permainan ini memiliki papan yang interaktif, animasi pion, serta fitur untuk mengatur giliran pemain, pause, dan restart permainan.
 
 ---
