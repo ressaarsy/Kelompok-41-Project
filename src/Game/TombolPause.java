@@ -32,7 +32,7 @@ public class TombolPause {
 
         restartButton.addActionListener(e -> {
             resetGame();
-            JOptionPane.showMessageDialog(parentFrame, "Permainan Dimulai Ulang");
+            JOptionPane.showMessageDialog(parentFrame, "Permainan dimulai ulang!");
             pauseDialog.setVisible(false);
         });
 
@@ -40,14 +40,14 @@ public class TombolPause {
 
         helpButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(parentFrame,
-                "Cara bermain Ular Tangga:\n" +
-                "1. Giliran Pemain: Pemain bergiliran melempar dadu dan bergerak sesuai angka dadu.\n" +
-                "2. Ular & Tangga:\n" +
-                "   - Jika mendarat di ular, turun ke kotak yang lebih rendah.\n" +
-                "   - Jika mendarat di tangga, naik ke kotak yang lebih tinggi.\n" +
-                "3. Tujuan: Pemain pertama yang mencapai kotak 100 menang.\n" +
-                "4. Peraturan: Jika melempar dadu dan melampaui kotak 100, tetap di posisi sebelumnya.");
-        });        
+                "Cara Bermain Ular Tangga:\n\n" +
+                "1. Dua pemain bergantian melempar dadu dan bergerak sesuai angka.\n" +
+                "2. Jika mendarat di tangga, naik. Jika di ular, turun.\n" +
+                "3. Pemain pertama yang mencapai kotak 100 menang.\n" +
+                "4. Jika angka dadu lebih dari langkah ke 100, giliran dilewati.\n" +
+                "5. Jika angka dadu 6, pemain mendapat giliran tambahan.\n\n" +
+                "Selamat bermain dan semoga beruntung!");
+        });             
 
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -69,7 +69,7 @@ public class TombolPause {
     private void designButton(JButton button) {
         button.setFont(new Font("Arial", Font.BOLD, 14));
         button.setPreferredSize(new Dimension(200, 40));
-        button.setBackground(new Color(0x88c26d));
+        button.setBackground(new Color(154, 205, 49));
         button.setForeground(Color.WHITE);
     }
 

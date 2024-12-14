@@ -10,7 +10,6 @@ public class DatabaseConnector {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 
-    // Metode untuk mendapatkan koneksi
     public static Connection getConnection() throws SQLException {
         try {
             Connection connection = DriverManager.getConnection(JDBC_URL, USERNAME, PASSWORD);

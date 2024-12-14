@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2024 at 08:21 AM
+-- Generation Time: Dec 14, 2024 at 08:06 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -39,10 +39,10 @@ CREATE TABLE `score` (
 --
 
 INSERT INTO `score` (`id_score`, `id_user`, `jumlah_menang`, `tgl_menang`) VALUES
-(1, 1, 2, '2024-01-01 14:30:00'),
-(2, 2, 1, '2024-01-02 15:00:00'),
-(3, 3, 3, '2024-01-03 16:45:00'),
-(4, 1, 3, '2024-01-04 17:10:00');
+(7, 6, 1, '2024-12-13 15:40:16'),
+(8, 7, 1, '2024-12-13 15:56:07'),
+(11, 10, 1, '2024-12-14 14:57:37'),
+(12, 11, 1, '2024-12-14 14:59:00');
 
 -- --------------------------------------------------------
 
@@ -61,9 +61,10 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama`, `jumlah_menang`) VALUES
-(1, 'Ressa', 5),
-(2, 'Daffa', 3),
-(3, 'Arneta', 8);
+(6, 'Daffa', 4),
+(7, 'Ressa', 5),
+(10, 'Arneta', 2),
+(11, 'Alya', 1);
 
 --
 -- Indexes for dumped tables
@@ -91,13 +92,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `score`
 --
 ALTER TABLE `score`
-  MODIFY `id_score` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_score` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

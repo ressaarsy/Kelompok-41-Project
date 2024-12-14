@@ -1,11 +1,12 @@
 package Game;
 
 import DataBase.DatabaseHandler;
-import java.awt.*;
-import java.util.List;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import java.awt.*;
+import java.util.List;
 
 public class Leaderboard {
 
